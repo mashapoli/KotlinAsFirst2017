@@ -56,10 +56,10 @@ fun main(args: Array<String>) {
  * Рассчитать время в секундах, прошедшее с начала суток (30035 в данном случае).
  */
 fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
-    val hins = 3600 * hours
-    val mins = 60 * minutes
-    val sins = seconds
-    return hins + mins + sins
+    val hoursins = 3600 * hours
+    val minuteins = 60 * minutes
+    val secondins = seconds
+    return hoursins + minuteins + secondins
 }
 
 
@@ -71,11 +71,11 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
  * 1 сажень = 3 аршина = 48 вершков, 1 вершок = 4.445 см.
  */
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
-    //val sa = sagenes * 48 * 4.445 / 100
-    //val ar = arshins * 16 * 4.445 / 100
-   // val ver = vershoks * 4.445 / 100
+    val sag = sagenes * 48
+    val ars = arshins * 16
+    val ver = vershoks
 
-    return (sagenes*48+ arshins*16+vershoks)*4.445/100
+    return (sag + ars + ver )*4.445/100
 }
 
 /**
@@ -85,8 +85,10 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
  * Вывести значение того же угла в радианах (например, 0.63256).
  */
 fun angleInRadian(grad: Int, min: Int, sec: Int): Double {
-    val re = (grad + (min + sec / 60.0) / 60.0) * PI / 180
-    return re
+    val sec1 = sec / 3600.0
+    val min1 = min / 60.0
+    val grad1 = grad
+    return (grad1 + min1 + sec1 ) * PI / 180
 
 }
 
@@ -97,8 +99,7 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double {
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
 fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
-    val re = sqrt(sqr(x2 - x1) + sqr(y2 - y1))
-    return re
+    return sqrt(sqr(x2 - x1) + sqr(y2 - y1))
 }
 
 /**
@@ -122,8 +123,7 @@ fun thirdDigit(number: Int): Int {
 fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minutesArrive: Int): Int {
     val c1 = hoursDepart * 60 + minutesDepart
     val c2 = hoursArrive * 60 + minutesArrive
-    val re = c2 - c1
-    return re
+    return c2-c1
 
 }
 
@@ -135,8 +135,9 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
-    val re = initial * (pow(((percent * 0.01) + 1.0), 3.0))
-    return re
+   // val re = initial * (pow(((percent  / 100.0) + 1.0), 3.0))
+    //return re
+    return initial * (pow(((percent  / 100.0) + 1.0), 3.0))
 }
 
 
