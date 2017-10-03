@@ -44,7 +44,7 @@ fun main(args: Array<String>) {
     // Решаем x^2 - 3*x + 2 = 0
 //  val x1x2 = quadraticRootProduct(1.0, -3.0, 2.0)
 //   println("Root product: $x1x2")
-    val r = lengthInMeters(8 , 2 , 11)
+    val r = lengthInMeters(8, 2, 11)
     println("$r")
 }
 
@@ -72,7 +72,7 @@ fun seconds(hours: Int, minutes: Int, seconds: Int): Int {
 fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
     val sagInVer = sagenes * 48
     val arsInVer = arshins * 16
-    return (sagInVer + arsInVer + vershoks )*4.445/100
+    return (sagInVer + arsInVer + vershoks) * 4.445 / 100
 }
 
 /**
@@ -84,7 +84,7 @@ fun lengthInMeters(sagenes: Int, arshins: Int, vershoks: Int): Double {
 fun angleInRadian(grad: Int, min: Int, sec: Int): Double {
     val secInRad = sec / 3600.0
     val minInRad = min / 60.0
-    return (grad + minInRad + secInRad ) * PI / 180
+    return (grad + minInRad + secInRad) * PI / 180
 
 }
 
@@ -94,9 +94,8 @@ fun angleInRadian(grad: Int, min: Int, sec: Int): Double {
  * Найти длину отрезка, соединяющего точки на плоскости с координатами (x1, y1) и (x2, y2).
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
-fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double {
-    return sqrt(sqr(x2 - x1) + sqr(y2 - y1))
-}
+fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double = sqrt(sqr(x2 - x1) + sqr(y2 - y1))
+
 
 /**
  * Простая
@@ -129,7 +128,7 @@ fun travelMinutes(hoursDepart: Int, minutesDepart: Int, hoursArrive: Int, minute
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
 fun accountInThreeYears(initial: Int, percent: Int): Double {
-    return initial * (pow(((percent  / 100.0) + 1.0), 3.0))
+    return initial * (pow(((percent / 100.0) + 1.0), 3.0))
 }
 
 
