@@ -66,33 +66,27 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
     var maxWall: Int
-    var Wall: Int
-    var l1: Int
-    var l2: Int
-    var maxBrick: Int
+    var wall: Int
+    var minBrick: Int
+    var midBrick: Int
+
     if (r >= s) {
         maxWall = r
-        Wall = s
+        wall = s
     } else {
         maxWall = s
-        Wall = r
+        wall = r
     }
     if (a >= b && a >= c) {
-        maxBrick = a
-        l1 = b
-        l2 = c
+        minBrick = if (b < c) b else c
+        midBrick = if (b > c) b else c
     } else if (b >= a && b >= c) {
-        maxBrick = b
-        l1 = a
-        l2 = c
+        minBrick = if (a < c) a else c
+        midBrick = if (a > c) a else c
     } else {
-        maxBrick = c
-        l1 = a
-        l2 = b
+        minBrick = if (a < b) b else a
+        midBrick = if (a > b) b else a
     }
-    val Exemp1 = l1 <= Wall
-    val Exemp2 = l2 <= Wall
-    if ((maxBrick <= maxWall && (Exemp1 || Exemp2)) || ((Exemp1 || Exemp2) && (l1 <= maxWall || l2 <= maxWall)))
-        return true
-    else return false
+    return midBrick <= maxWall && minBrick <= wall
+
 }
