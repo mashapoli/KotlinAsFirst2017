@@ -2,6 +2,7 @@
 package lesson2.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
 import java.lang.Math.abs
 
 /**
@@ -35,22 +36,18 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    val agePro100 = age % 100
-    return   if (agePro100 in 11 .. 14) {
-          "$age лет"
-        } else {
-        val agePro10 = age % 10
-        if (agePro10 == 0) {
-             "$age  лет"
-        } else if (agePro10 == 1) {
-             "$age год"
-        } else if (agePro10 in 2 .. 4) {
-             "$age года"
-        } else if (agePro10 in 5 .. 9) {
-             "$age лет"
-        } else "не определено"
+    val ageMod100 = age % 100
+    val ageMod10 = age % 10
+    return if (ageMod100 in 11..14) {
+        "$age лет"
+    } else when {
+        (ageMod10 == 0) -> "$age лет"
+        (ageMod10 == 1) -> "$age год"
+        (ageMod10 in 2..4) -> "$age года "
+        (ageMod10 in 5..9) -> "$age лет"
+        else -> "не определено"
     }
-    }
+}
 
 
 /**
@@ -70,11 +67,9 @@ fun timeForHalfWay(t1: Double, v1: Double,
     return when {
         Way1 >= AllWay -> AllWay / v1
         Way1 + Way2 >= AllWay -> (AllWay - Way1) / v2 + t1
-
         else -> return (AllWay - Way1 - Way2) / v3 + t1 + t2
     }
 }
-
 
 
 /**
@@ -89,11 +84,19 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
+    val kingXEquallyRookX1 = (kingX == rookX1)
+    val kingYEquallyRookY1 = (kingY == rookY1)
+    val kingXNotEqRookX2 = kingX != rookX2
+    val kingYNotEqRookY2 = kingY != rookY2
+    val kingXEqaRookX2 = kingX == rookX2
+    val kingYEqaRookY2 = kingY == rookY2
+    val kingXNotEqRookX1 = kingX != rookX1
+    val kingYNotEqRookY1 = kingY != rookY1
     return when {
-        (kingX == rookX1 || kingY == rookY1) && (kingX != rookX2 && kingY != rookY2) -> 1
-        (kingX == rookX2 || kingY == rookY2) && (kingX != rookX1 && kingY != rookY1) -> 2
-        kingX != rookX1 && kingX != rookX2 && kingY != rookY1 && kingY != rookY2 -> 0
-        (kingX == rookX2 || kingX == rookX1) && (kingY == rookY2 || kingY == rookY1) -> 3
+        (kingXEquallyRookX1 || kingYEquallyRookY1) && (kingXNotEqRookX2 && kingYNotEqRookY2) -> 1
+        (kingXEqaRookX2 || kingYEqaRookY2) && (kingXNotEqRookX1 && kingYNotEqRookY1) -> 2
+        (kingXNotEqRookX1 && kingXNotEqRookX2 && kingYNotEqRookY1 && kingYNotEqRookY2) -> 0
+        (kingXEqaRookX2 || kingXEquallyRookX1) && (kingYEqaRookY2 || kingYEquallyRookY1) -> 3
 
         else -> TODO()
     }
@@ -112,16 +115,23 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    val residaulX = abs (kingX - bishopX)
-    val residaulY = abs (kingY - bishopY)
+    val residaulX = abs(kingX - bishopX)
+    val residaulY = abs(kingY - bishopY)
+    val residaulXEqallyResidaulY = residaulX == residaulY
+    val residaulXNotEqaResidaulY = residaulX != residaulY
+    val kingXNotEqRookX = kingX != rookX
+    val kingXEqaRookX = kingX == rookX
+    val kingYNotEqRookY = kingY != rookY
+    val kingYEqaRookY = kingY == rookY
     return when {
-        (residaulX != residaulY) && (kingX != rookX && kingY != rookY) -> 0
-        (residaulX != residaulY) && (kingX == rookX || kingY == rookY) -> 1
-        (residaulX == residaulY) && (kingX != rookX && kingY != rookY) -> 2
-        (residaulX == residaulY) && (kingX == rookX || kingY == rookY) -> 3
-        else  -> TODO ()
+        residaulXNotEqaResidaulY && (kingXNotEqRookX && kingYNotEqRookY) -> 0
+        residaulXNotEqaResidaulY && (kingXEqaRookX || kingYEqaRookY) -> 1
+        residaulXEqallyResidaulY && (kingXNotEqRookX && kingYNotEqRookY) -> 2
+        residaulXEqallyResidaulY && (kingXEqaRookX || kingYEqaRookY) -> 3
+        else -> TODO()
     }
 }
+
 
 /**
  * Простая
@@ -131,22 +141,31 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun sqr(x: Double) = x * x
+
 
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    var cosA = (sqr(b) + sqr(c) - sqr(a)) / 2 * b * c
-    val cosB = (sqr(a) + sqr(c) - sqr(b)) / 2 * a * c
-    val cosC = (sqr(a) + sqr(b) - sqr(c)) / 2 * b * a
-    return when {
-        (a + b < c || a + c < b || b + c < a) -> -1
-        (cosA > 90 || cosB > 90 || cosC > 90) -> 2
-        (cosA == 90.0 || cosB == 90.0 || cosC == 90.0) -> 1
-        (cosA < 90 && cosB < 90 && cosC < 90) -> 0
-
+    return if (a + b < c || a + c < b || b + c < a) {
+        -1
+    } else when {
+        a > b && a > c -> when {
+            sqr(a) == sqr(b) + sqr(c) -> 1
+            sqr(a) > sqr(b) + sqr(c) -> 2
+            else -> 0
+        }
+        b > a && b > c -> when {
+            sqr(b) == sqr(a) + sqr(c) -> 1
+            sqr(b) > sqr(a) + sqr(c) -> 2
+            else -> 0
+        }
+        c > a && c > b -> when {
+            sqr(c) == sqr(b) + sqr(a) -> 1
+            sqr(c) > sqr(b) + sqr(a) -> 2
+            else -> 0
+        }
         else -> TODO()
     }
-
 }
+
 
 /**
  * Средняя
