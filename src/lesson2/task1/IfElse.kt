@@ -144,27 +144,35 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
 
 
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    return if (a + b < c || a + c < b || b + c < a) {
-        -1
-    } else when {
-        a > b && a > c -> when {
-            sqr(a) == sqr(b) + sqr(c) -> 1
-            sqr(a) > sqr(b) + sqr(c) -> 2
-            else -> 0
-        }
-        b > a && b > c -> when {
-            sqr(b) == sqr(a) + sqr(c) -> 1
-            sqr(b) > sqr(a) + sqr(c) -> 2
-            else -> 0
-        }
-        c > a && c > b -> when {
-            sqr(c) == sqr(b) + sqr(a) -> 1
-            sqr(c) > sqr(b) + sqr(a) -> 2
-            else -> 0
-        }
-        else -> TODO()
+    if (a + b < c || a + c < b || b + c < a) {
+        return -1
     }
+    var max: Double
+    var l1: Double
+    var l2: Double
+    if (a >= b && a >= c) {
+        max = a
+        l1 = b
+        l2 = c
+    } else if (b >= a && b >= c) {
+        max = b
+        l1 = a
+        l2 = c
+    } else {
+        max = c
+        l1 = a
+        l2 = b
+
+    }
+    return when {
+        sqr(max) == sqr(l1) + sqr(l2) -> 1
+        sqr(max) > sqr(l1) + sqr(l2) -> 2
+        else -> 0
+    }
+
+
 }
+
 
 
 /**
