@@ -4,6 +4,7 @@ package lesson2.task2
 
 import lesson1.task1.sqr
 import java.lang.Math.abs
+import java.lang.Math.sqrt
 
 /**
  * Пример
@@ -48,7 +49,11 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
  * Вернуть true, если утверждение верно
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean = TODO()
+                 x2: Double, y2: Double, r2: Double): Boolean {
+    if (sqrt(sqr(x2 - x1) + sqr(y2 - y1)) <= r2 - r1) {
+        return true
+    } else return false
+}
 
 /**
  * Средняя
@@ -59,4 +64,35 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
+    var maxWall: Int
+    var Wall: Int
+    var l1: Int
+    var l2: Int
+    var maxBrick: Int
+    if (r >= s) {
+        maxWall = r
+        Wall = s
+    } else {
+        maxWall = s
+        Wall = r
+    }
+    if (a >= b && a >= c) {
+        maxBrick = a
+        l1 = b
+        l2 = c
+    } else if (b >= a && b >= c) {
+        maxBrick = b
+        l1 = a
+        l2 = c
+    } else {
+        maxBrick = c
+        l1 = a
+        l2 = b
+    }
+    val Exemp1 = l1 <= Wall
+    val Exemp2 = l2 <= Wall
+    if ((maxBrick <= maxWall && (Exemp1 || Exemp2)) || ((Exemp1 || Exemp2) && (l1 <= maxWall || l2 <= maxWall)))
+        return true
+    else return false
+}
