@@ -84,8 +84,8 @@ fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
         minBrick = if (a < c) a else c
         midBrick = if (a > c) a else c
     } else {
-        minBrick = if (a < b) b else a
-        midBrick = if (a > b) b else a
+        minBrick = if (a < b) a else b
+        midBrick = if (a > b) a else b
     }
     return midBrick <= maxWall && minBrick <= wall
 
