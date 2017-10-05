@@ -38,14 +38,14 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
 fun ageDescription(age: Int): String {
     val ageMod100 = age % 100
     val ageMod10 = age % 10
-    return if (ageMod100 in 11..14) {
-        "$age лет"
-    } else when {
-        (ageMod10 == 0) -> "$age лет"
-        (ageMod10 == 1) -> "$age год"
-        (ageMod10 in 2..4) -> "$age года "
-        (ageMod10 in 5..9) -> "$age лет"
+    return when{
+        ageMod100 in 11..14 -> "$age лет"
+        ageMod10 == 0 -> "$age лет"
+        ageMod10 == 1 -> "$age год"
+        ageMod10 in 2..4 -> "$age года"
+        ageMod10 in 5..9 -> "$age лет"
         else -> "не определено"
+
     }
 }
 
@@ -84,8 +84,8 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    val kingXEquallyRookX1 = (kingX == rookX1)
-    val kingYEquallyRookY1 = (kingY == rookY1)
+    val kingXEquallyRookX1 = kingX == rookX1
+    val kingYEquallyRookY1 = kingY == rookY1
     val kingXNotEqRookX2 = kingX != rookX2
     val kingYNotEqRookY2 = kingY != rookY2
     val kingXEqaRookX2 = kingX == rookX2
