@@ -169,8 +169,6 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
         sqr(max) > sqr(l1) + sqr(l2) -> 2
         else -> 0
     }
-
-
 }
 
 

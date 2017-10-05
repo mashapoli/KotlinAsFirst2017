@@ -34,18 +34,22 @@ fun isNumberHappy(number: Int): Boolean {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-   var dif1 : Int
-    var dif2 : Int
-    if (x1> x2){
+    var dif1: Int
+    var dif2: Int
+    if (x1 > x2) {
         dif1 = x1 - x2
-    } else {dif1 = x2 - x1}
-    if (y1> y2) {
+    } else {
+        dif1 = x2 - x1
+    }
+    if (y1 > y2) {
         dif2 = y1 - y2
-    } else {dif2 = y2 - y1}
-    if (x1 == x2 || y1 == y2 || dif2 == dif2 ) {
+    } else {
+        dif2 = y2 - y1
+    }
+    if (x1 == x2 || y1 == y2 || dif2 == dif2) {
         return true
     } else return false
-    }
+}
 
 
 /**
