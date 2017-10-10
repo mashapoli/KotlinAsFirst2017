@@ -9,7 +9,7 @@ package lesson3.task1
 fun factorial(n: Int): Double {
     var result = 1.0
     for (i in 1..n) {
-        result = result * i // Please do not fix in master
+        result *= i // Please do not fix in master
     }
     return result
 }
@@ -21,10 +21,7 @@ fun factorial(n: Int): Double {
  */
 fun isPrime(n: Int): Boolean {
     if (n < 2) return false
-    for (m in 2..Math.sqrt(n.toDouble()).toInt()) {
-        if (n % m == 0) return false
-    }
-    return true
+    return (2..Math.sqrt(n.toDouble()).toInt()).none { n % it == 0 }
 }
 
 /**
@@ -165,6 +162,7 @@ fun squareSequenceDigit(n: Int): Int = TODO()
 /**
  * Сложная
  *
+
  * Найти n-ю цифру последовательности из чисел Фибоначчи (см. функцию fib выше):
  * 1123581321345589144...
  * Например, 2-я цифра равна 1, 9-я 2, 14-я 5.

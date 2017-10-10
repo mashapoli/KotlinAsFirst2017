@@ -35,10 +35,10 @@ fun isNumberHappy(number: Int): Boolean {
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
-    if (x1 == x2 || y1 == y2 || (abs(x1 - x2) == abs(y1 - y2))) return (true)
-    else return (false)
-}
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
+     (x1 == x2 || y1 == y2 || (abs(x1 - x2) == abs(y1 - y2)))
+
+
 
 
 /**
@@ -49,11 +49,9 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean {
  * Вернуть true, если утверждение верно
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
-                 x2: Double, y2: Double, r2: Double): Boolean {
-    if (sqrt(sqr(x2 - x1) + sqr(y2 - y1)) <= r2 - r1) {
-        return true
-    } else return false
-}
+                 x2: Double, y2: Double, r2: Double): Boolean =
+     (sqrt(sqr(x2 - x1) + sqr(y2 - y1)) <= r2 - r1)
+
 
 /**
  * Средняя

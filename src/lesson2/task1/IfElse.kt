@@ -86,17 +86,18 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX2: Int, rookY2: Int): Int {
     val kingXEquallyRookX1 = kingX == rookX1
     val kingYEquallyRookY1 = kingY == rookY1
-    val kingXNotEqRookX2 = kingX != rookX2
-    val kingYNotEqRookY2 = kingY != rookY2
     val kingXEqaRookX2 = kingX == rookX2
     val kingYEqaRookY2 = kingY == rookY2
-    val kingXNotEqRookX1 = kingX != rookX1
-    val kingYNotEqRookY1 = kingY != rookY1
+
+    val noThreats = !kingXEquallyRookX1 && !kingXEqaRookX2 && !kingYEquallyRookY1 && !kingYEqaRookY2
+    val firstRookThreat = (kingXEquallyRookX1 || kingYEquallyRookY1) && (!kingXEqaRookX2 && !kingYEqaRookY2)
+    val secondRookThreat = (kingXEqaRookX2 || kingYEqaRookY2) && (!kingXEquallyRookX1 && !kingYEquallyRookY1)
+    val bothRooksThreat = (kingXEqaRookX2 || kingXEquallyRookX1) && (kingYEqaRookY2 || kingYEquallyRookY1)
     return when {
-        (kingXEquallyRookX1 || kingYEquallyRookY1) && (kingXNotEqRookX2 && kingYNotEqRookY2) -> 1
-        (kingXEqaRookX2 || kingYEqaRookY2) && (kingXNotEqRookX1 && kingYNotEqRookY1) -> 2
-        (kingXNotEqRookX1 && kingXNotEqRookX2 && kingYNotEqRookY1 && kingYNotEqRookY2) -> 0
-        (kingXEqaRookX2 || kingXEquallyRookX1) && (kingYEqaRookY2 || kingYEquallyRookY1) -> 3
+        noThreats -> 0
+        firstRookThreat -> 1
+        secondRookThreat -> 2
+        bothRooksThreat -> 3
 
         else -> TODO()
     }
@@ -118,16 +119,18 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
     val residaulX = abs(kingX - bishopX)
     val residaulY = abs(kingY - bishopY)
     val residaulXEqallyResidaulY = residaulX == residaulY
-    val residaulXNotEqaResidaulY = residaulX != residaulY
-    val kingXNotEqRookX = kingX != rookX
     val kingXEqaRookX = kingX == rookX
-    val kingYNotEqRookY = kingY != rookY
     val kingYEqaRookY = kingY == rookY
+
+    val noThreats = !residaulXEqallyResidaulY && (!kingXEqaRookX && !kingYEqaRookY )
+    val rookThreat = !residaulXEqallyResidaulY && (kingXEqaRookX || kingYEqaRookY)
+    val bishopThreat = residaulXEqallyResidaulY && (!kingXEqaRookX && kingYEqaRookY )
+    val rookBishopThreat = residaulXEqallyResidaulY && (kingXEqaRookX || kingYEqaRookY)
     return when {
-        residaulXNotEqaResidaulY && (kingXNotEqRookX && kingYNotEqRookY) -> 0
-        residaulXNotEqaResidaulY && (kingXEqaRookX || kingYEqaRookY) -> 1
-        residaulXEqallyResidaulY && (kingXNotEqRookX && kingYNotEqRookY) -> 2
-        residaulXEqallyResidaulY && (kingXEqaRookX || kingYEqaRookY) -> 3
+        noThreats -> 0
+        rookThreat -> 1
+        bishopThreat -> 2
+        rookBishopThreat -> 3
         else -> TODO()
     }
 }
@@ -183,11 +186,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     return when {
-        (b < c || a > d) -> -1
-        (b >= d && a >= c) -> d - a
-        (a >= c && b <= d) -> b - a
-        (a <= c && d <= b) -> d - c
-        (a <= c && b <= d) -> b - c
+        (b < c || a > d) -> -1  //не пересекаются
+        (b >= d && a >= c) -> d - a // точка d лежит левее b, с левее а, таким образом отрзки пересекаются в DA
+        (a >= c && b <= d) -> b - a // отрезок АВ меньше CD, таким образом они пресекаются в АВ
+        (a <= c && d <= b) -> d - c // отрезок CD меньше АВ, таким образом они пресекаются в CD
+        (a <= c && b <= d) -> b - c // точка b лежит левее d, a левее c, таким образом отрзки пересекаются в BC
         else -> TODO()
 
     }
