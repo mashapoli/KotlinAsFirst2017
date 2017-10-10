@@ -124,7 +124,7 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
 
     val noThreats = !residaulXEqallyResidaulY && (!kingXEqaRookX && !kingYEqaRookY )
     val rookThreat = !residaulXEqallyResidaulY && (kingXEqaRookX || kingYEqaRookY)
-    val bishopThreat = residaulXEqallyResidaulY && (!kingXEqaRookX && kingYEqaRookY )
+    val bishopThreat = residaulXEqallyResidaulY && (!kingXEqaRookX && !kingYEqaRookY )
     val rookBishopThreat = residaulXEqallyResidaulY && (kingXEqaRookX || kingYEqaRookY)
     return when {
         noThreats -> 0
