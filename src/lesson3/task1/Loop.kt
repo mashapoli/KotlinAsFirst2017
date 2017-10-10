@@ -1,6 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import java.lang.Math.abs
+
 /**
  * Пример
  *
@@ -58,7 +60,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
 fun digitNumber(n: Int): Int {
-    var number = n
+    var number =abs(n)
     var count = 0
     do {
         if (number % 10 >= 0) {
