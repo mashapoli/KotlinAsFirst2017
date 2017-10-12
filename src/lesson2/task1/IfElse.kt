@@ -60,14 +60,14 @@ fun ageDescription(age: Int): String {
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
                    t3: Double, v3: Double): Double {
-    val Way1 = t1 * v1
-    val Way2 = t2 * v2
-    val Way3 = t3 * v3
-    val AllWay = (Way1 + Way2 + Way3) / 2
+    val way1 = t1 * v1
+    val way2 = t2 * v2
+    val way3 = t3 * v3
+    val halfWay = (way1 + way2 + way3) / 2
     return when {
-        Way1 >= AllWay -> AllWay / v1
-        Way1 + Way2 >= AllWay -> (AllWay - Way1) / v2 + t1
-        else -> return (AllWay - Way1 - Way2) / v3 + t1 + t2
+        way1 >= halfWay -> halfWay / v1
+        way1 + way2 >= halfWay -> (halfWay - way1) / v2 + t1
+        else -> return (halfWay - way1 - way2) / v3 + t1 + t2
     }
 }
 
@@ -116,16 +116,16 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    val residaulX = abs(kingX - bishopX)
-    val residaulY = abs(kingY - bishopY)
-    val residaulXEqallyResidaulY = residaulX == residaulY
+    val differenceX = abs(kingX - bishopX)
+    val differenceY = abs(kingY - bishopY)
+    val differenceXEqallyDifferenceY =  differenceX ==  differenceY
     val kingXEqaRookX = kingX == rookX
     val kingYEqaRookY = kingY == rookY
 
-    val noThreats = !residaulXEqallyResidaulY && (!kingXEqaRookX && !kingYEqaRookY )
-    val rookThreat = !residaulXEqallyResidaulY && (kingXEqaRookX || kingYEqaRookY)
-    val bishopThreat = residaulXEqallyResidaulY && (!kingXEqaRookX && !kingYEqaRookY )
-    val rookBishopThreat = residaulXEqallyResidaulY && (kingXEqaRookX || kingYEqaRookY)
+    val noThreats = !differenceXEqallyDifferenceY && (!kingXEqaRookX && !kingYEqaRookY )
+    val rookThreat = !differenceXEqallyDifferenceY && (kingXEqaRookX || kingYEqaRookY)
+    val bishopThreat = differenceXEqallyDifferenceY && (!kingXEqaRookX && !kingYEqaRookY )
+    val rookBishopThreat = differenceXEqallyDifferenceY && (kingXEqaRookX || kingYEqaRookY)
     return when {
         noThreats -> 0
         rookThreat -> 1
