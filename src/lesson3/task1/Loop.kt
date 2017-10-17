@@ -1,7 +1,10 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import lesson1.task1.numberRevert
 import java.lang.Math.abs
+import java.lang.Math.min
+import java.lang.Math.sqrt
 
 /**
  * Пример
@@ -33,7 +36,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -60,7 +63,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
 fun digitNumber(n: Int): Int {
-    var number =abs(n)
+    var number = abs(n)
     var count = 0
     do {
         if (number % 10 >= 0) {
@@ -70,6 +73,7 @@ fun digitNumber(n: Int): Int {
     } while (number > 0)
     return count
 }
+
 /**
  * Простая
  *
@@ -91,20 +95,40 @@ fun fib(n: Int): Int {
     }
     return fibCur
 }
+
 /**
  * Простая
  *
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var numberM = abs(m)
+    var numberN = abs(n)
+    while (numberM != numberN) {
+        if (numberM > numberN) {
+            numberM -= numberN
+        } else numberN -= numberM
+    }
+    return abs(m * n) / numberM
+}
+
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO ()
+fun minDivisor(n: Int): Int {
+    var result = 1
+    for (num in 2..n) {
+        if (n % num == 0) {
+            result = num
+            break
+        }
+    }
+    return result
+}
 //
 //
 //}
@@ -113,7 +137,17 @@ fun minDivisor(n: Int): Int = TODO ()
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var result = 1
+    for (num in n - 1 downTo 1) {
+        if (n % num == 0) {
+            result = num
+            break
+        }
+    }
+    return result
+}
+
 
 /**
  * Простая
@@ -122,7 +156,16 @@ fun maxDivisor(n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+   var numberM = m
+    var numberN = n
+    for (num in 2 .. min(m,n)) {
+        if (numberM % num == 0 && numberN % num == 0) {
+            return false
+        }
+    }
+    return true
+}
 
 /**
  * Простая
@@ -131,7 +174,9 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
+fun squareBetweenExists(m: Int, n: Int): Boolean {
+    return (1..sqrt(n.toDouble()).toInt()).any { it * it in m..n }
+}
 
 /**
  * Средняя
