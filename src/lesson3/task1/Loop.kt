@@ -2,9 +2,7 @@
 package lesson3.task1
 
 import lesson1.task1.numberRevert
-import java.lang.Math.abs
-import java.lang.Math.min
-import java.lang.Math.sqrt
+import java.lang.Math.*
 
 /**
  * Пример
@@ -185,7 +183,21 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var i = 1
+    var koef = -1
+    var sini: Double
+    var sin = 0.0
+    var xNew = x % (2 * PI)
+    do {
+        sini = pow(xNew, i.toDouble()) / factorial(i)
+        koef *= (-1)
+        sin += koef * sini
+        i += 2
+    } while (sini > eps)
+    return sin
+
+}
 
 /**
  * Средняя
@@ -194,7 +206,21 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    var i = 0
+    var koef = -1
+    var cosi: Double
+    var cos = 0.0
+    var xNew = x % (2 * PI)
+    do {
+        cosi = pow(xNew, i.toDouble()) / factorial(i)
+        koef *= (-1)
+        cos += koef * cosi
+        i += 2
+    } while (cosi > eps)
+    return cos
+
+}
 
 /**
  * Средняя
