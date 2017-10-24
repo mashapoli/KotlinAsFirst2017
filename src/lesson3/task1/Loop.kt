@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson3.task1
 
 import lesson1.task1.numberRevert
@@ -61,17 +62,13 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Найти количество цифр в заданном числе n.
  * Например, число 1 содержит 1 цифру, 456 -- 3 цифры, 65536 -- 5 цифр.
  */
-fun digitNumber(n: Int): Int {
-    var number = abs(n)
-    var count = 0
-    do {
-        if (number % 10 >= 0) {
-            count++
-        }
-        number /= 10
-    } while (number > 0)
-    return count
-}
+fun digitNumber(n: Int): Int =
+        when {
+        abs(n) < 10 -> 1
+        else -> digitNumber(n / 10) + 1
+    }
+
+
 
 /**
  * Простая
