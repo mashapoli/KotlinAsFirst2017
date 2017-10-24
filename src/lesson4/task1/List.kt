@@ -1,7 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import java.lang.Math.sqrt
 
 /**
  * Пример
@@ -106,7 +108,8 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double =
+        sqrt(v.map { it * it }.sum())
 
 /**
  * Простая
@@ -115,7 +118,7 @@ fun abs(v: List<Double>): Double = TODO()
  */
 fun mean(list: List<Double>): Double =
         when {
-            list.sum() == 0.0 -> 0.0
+            list.isEmpty() -> 0.0
             else -> (list.sum() / list.size)
         }
 
