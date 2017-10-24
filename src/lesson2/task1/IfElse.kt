@@ -84,22 +84,13 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    val kingXEquallyRookX1 = kingX == rookX1
-    val kingYEquallyRookY1 = kingY == rookY1
-    val kingXEqaRookX2 = kingX == rookX2
-    val kingYEqaRookY2 = kingY == rookY2
-
-    val noThreats = !kingXEquallyRookX1 && !kingXEqaRookX2 && !kingYEquallyRookY1 && !kingYEqaRookY2
-    val firstRookThreat = (kingXEquallyRookX1 || kingYEquallyRookY1) && (!kingXEqaRookX2 && !kingYEqaRookY2)
-    val secondRookThreat = (kingXEqaRookX2 || kingYEqaRookY2) && (!kingXEquallyRookX1 && !kingYEquallyRookY1)
-    val bothRooksThreat = (kingXEqaRookX2 || kingXEquallyRookX1) && (kingYEqaRookY2 || kingYEquallyRookY1)
+    val firstRookThreat = kingX == rookX1 || kingY == rookY1
+    val secondRookThreat = kingX == rookX2 || kingY == rookY2
     return when {
-        noThreats -> 0
+        firstRookThreat && secondRookThreat -> 3
         firstRookThreat -> 1
         secondRookThreat -> 2
-        bothRooksThreat -> 3
-
-        else -> TODO()
+        else -> 0
     }
 }
 
@@ -118,20 +109,14 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           bishopX: Int, bishopY: Int): Int {
     val differenceX = abs(kingX - bishopX)
     val differenceY = abs(kingY - bishopY)
-    val differenceXEqallyDifferenceY =  differenceX ==  differenceY
-    val kingXEqaRookX = kingX == rookX
-    val kingYEqaRookY = kingY == rookY
 
-    val noThreats = !differenceXEqallyDifferenceY && (!kingXEqaRookX && !kingYEqaRookY )
-    val rookThreat = !differenceXEqallyDifferenceY && (kingXEqaRookX || kingYEqaRookY)
-    val bishopThreat = differenceXEqallyDifferenceY && (!kingXEqaRookX && !kingYEqaRookY )
-    val rookBishopThreat = differenceXEqallyDifferenceY && (kingXEqaRookX || kingYEqaRookY)
+    val rookThreat =  kingX == rookX || kingY == rookY
+    val bishopThreat = differenceX ==  differenceY
     return when {
-        noThreats -> 0
-        rookThreat -> 1
+        rookThreat && bishopThreat -> 3
         bishopThreat -> 2
-        rookBishopThreat -> 3
-        else -> TODO()
+        rookThreat -> 1
+        else -> 0
     }
 }
 
