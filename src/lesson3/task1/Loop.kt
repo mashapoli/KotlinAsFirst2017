@@ -284,12 +284,11 @@ fun squareSequenceDigit(n: Int): Int {
         seq +=digitNumber(square)
         i++
     }
-    if (seq > n) {
-        while (seq != n) {
+        while (seq > n) {
             square /= 10
             seq--
         }
-    }
+    
     return square  % 10
 }
 
