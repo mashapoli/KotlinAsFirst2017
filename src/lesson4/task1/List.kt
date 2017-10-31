@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import java.lang.Math.pow
 import java.lang.Math.sqrt
 
 /**
@@ -150,13 +151,8 @@ fun center(list: MutableList<Double>): MutableList<Double> =
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double {
-    var sum = 0.0
-    for (i in 0 until a.size) {
-        sum += a[i] * b[i]
-    }
-    return sum
-}
+fun times(a: List<Double>, b: List<Double>): Double = (0 until a.size).sumByDouble { a[it] * b[it] }
+
 
 
 /**
@@ -167,7 +163,8 @@ fun times(a: List<Double>, b: List<Double>): Double {
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double = TODO()
+fun polynom(p: List<Double>, x: Double): Double = (0 until p.size).sumByDouble { p[it] * pow(x, it.toDouble()) }
+
 
 /**
  * Средняя
@@ -179,7 +176,19 @@ fun polynom(p: List<Double>, x: Double): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
+fun accumulate(list: MutableList<Double>): MutableList<Double> =
+        when {
+            list.isEmpty() -> list
+            else -> {
+                var list0 = list[0]
+                for (i in 1 until list.size) {
+                    val listI = list[i]
+                    list[i] += list0
+                    list0 += listI
+                }
+                list
+            }
+        }
 
 /**
  * Средняя
@@ -188,7 +197,18 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
-fun factorize(n: Int): List<Int> = TODO()
+fun factorize(n: Int): List<Int> {
+    var num = n
+    var factor = 2
+    var list = mutableListOf<Int>()
+    while (num > 1) {
+        if (num % factor == 0) {
+            num /= factor
+            list.add(factor)
+        } else factor++
+    }
+    return list.toList()
+}
 
 /**
  * Сложная
@@ -196,7 +216,7 @@ fun factorize(n: Int): List<Int> = TODO()
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = TODO()
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя
@@ -205,7 +225,15 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    var num = n
+    var newList = mutableListOf<Int>()
+    while (num > 0) {
+        newList.add(num % base)
+        num /= base
+    }
+    return newList.reversed()
+}
 
 /**
  * Сложная
