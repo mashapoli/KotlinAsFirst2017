@@ -100,7 +100,8 @@ fun isPalindrome(str: String): Boolean {
  * По имеющемуся списку целых чисел, например [3, 6, 5, 4, 9], построить строку с примером их суммирования:
  * 3 + 6 + 5 + 4 + 9 = 27 в данном случае.
  */
-fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", postfix = " = ${list.sum()}")
+fun buildSumExample(list: List<Int>) =
+        list.joinToString(separator = " + ", postfix = " = ${list.sum()}")
 
 /**
  * Простая
@@ -151,7 +152,8 @@ fun center(list: MutableList<Double>): MutableList<Double> =
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double = (0 until a.size).sumByDouble { a[it] * b[it] }
+fun times(a: List<Double>, b: List<Double>): Double =
+        (0 until a.size).sumByDouble { a[it] * b[it] }
 
 
 
@@ -163,7 +165,8 @@ fun times(a: List<Double>, b: List<Double>): Double = (0 until a.size).sumByDoub
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double = (0 until p.size).sumByDouble { p[it] * pow(x, it.toDouble()) }
+fun polynom(p: List<Double>, x: Double): Double =
+        (0 until p.size).sumByDouble { p[it] * pow(x, it.toDouble()) }
 
 
 /**
@@ -216,7 +219,8 @@ fun factorize(n: Int): List<Int> {
  * Разложить заданное натуральное число n > 1 на простые множители.
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  */
-fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
+fun factorizeToString(n: Int): String =
+        factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя
@@ -227,6 +231,9 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
  */
 fun convert(n: Int, base: Int): List<Int> {
     var num = n
+    if (num == 0) {
+        return listOf(0)
+    }
     var newList = mutableListOf<Int>()
     while (num > 0) {
         newList.add(num % base)

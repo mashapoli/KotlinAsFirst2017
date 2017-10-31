@@ -115,7 +115,8 @@ fun lcm(m: Int, n: Int): Int {
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = (2..n).firstOrNull { n % it == 0 } ?: 1
+fun minDivisor(n: Int): Int =
+        (2..n).firstOrNull { n % it == 0 } ?: 1
 
 
 //
@@ -126,7 +127,8 @@ fun minDivisor(n: Int): Int = (2..n).firstOrNull { n % it == 0 } ?: 1
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = (n - 1 downTo 1).firstOrNull { n % it == 0 } ?: 1
+fun maxDivisor(n: Int): Int =
+        (n - 1 downTo 1).firstOrNull { n % it == 0 } ?: 1
 
 
 
@@ -139,7 +141,8 @@ fun maxDivisor(n: Int): Int = (n - 1 downTo 1).firstOrNull { n % it == 0 } ?: 1
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = (2..min(m, n)).none { m % it == 0 && n % it == 0 }
+fun isCoPrime(m: Int, n: Int): Boolean =
+        (2..min(m, n)).none { m % it == 0 && n % it == 0 }
 
 
 /**
@@ -149,7 +152,8 @@ fun isCoPrime(m: Int, n: Int): Boolean = (2..min(m, n)).none { m % it == 0 && n 
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = (0..sqrt(n.toDouble()).toInt()).any { it * it in m..n }
+fun squareBetweenExists(m: Int, n: Int): Boolean =
+        (0..sqrt(n.toDouble()).toInt()).any { it * it in m..n }
 
 
 /**
