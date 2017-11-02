@@ -187,17 +187,6 @@ class Tests {
     }
 
     @Test
-    fun handyTest() {
-//        println('A')
-//        println('A' + 1)
-//
-//        val n = 15
-//        println('A' + n - 10)
-
-        println('a'.toInt())
-    }
-
-    @Test
     @Tag("Normal")
     fun decimal() {
         assertEquals(1, decimal(listOf(1), 2))
