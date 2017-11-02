@@ -250,7 +250,16 @@ fun convert(n: Int, base: Int): List<Int> {
  * строчными буквами: 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String {
+    val list = convert(n, base)
+    var str = ""
+    for (i in 0 until list.size) {
+        val element = list[i]
+        str += if (element < 9) element
+        else 'a' + element - 10
+    }
+    return str
+}
 
 /**
  * Средняя
