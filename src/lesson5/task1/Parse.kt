@@ -76,7 +76,7 @@ fun dateStrToDigit(str: String): String {
     if (monthNum == 0) {
         return ""
     }
-    return String.format("%02d.%02d.%d", parts[0].toInt(), monthNum, parts[2].toInt())
+    return String.format("%02d.%02d.%s", parts[0].toInt(), monthNum, parts[2])
 }
 
 /**
