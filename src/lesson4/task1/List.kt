@@ -121,7 +121,9 @@ fun abs(v: List<Double>): Double =
 fun mean(list: List<Double>): Double =
         if (list.isEmpty()) {
             0.0
-        } else {list.sum() / list.size}
+        } else {
+            list.sum() / list.size
+        }
 
 
 /**
@@ -132,17 +134,13 @@ fun mean(list: List<Double>): Double =
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> =
-        when {
-            list.isEmpty() -> list
-            else -> {
-                val m = mean(list)
-                for (i in 0 until list.size) {
-                    list[i] -= m
-                }
-                list
-            }
-        }
+fun center(list: MutableList<Double>): MutableList<Double> {
+    val m = mean(list)
+    for (i in 0 until list.size) {
+        list[i] -= m
+    }
+    return list
+}
 
 
 /**
@@ -183,12 +181,8 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> =
         when {
             list.isEmpty() -> list
             else -> {
-               var list0 = list[0]
                 for (i in 1 until list.size) {
-                    val listI = list[i]
-                    list[i] += list0
-                    println(list[i])
-                    list0 += listI
+                    list[i] += list[i - 1]
                 }
                 list
             }
@@ -209,7 +203,9 @@ fun factorize(n: Int): List<Int> {
         if (num % factor == 0) {
             num /= factor
             listFactorize.add(factor)
-        } else {factor++}
+        } else {
+            factor++
+        }
     }
     return listFactorize.toList()
 }
@@ -254,8 +250,7 @@ fun convert(n: Int, base: Int): List<Int> {
 fun convertToString(n: Int, base: Int): String {
     val list = convert(n, base)
     var str = ""
-    for (i in 0 until list.size) {
-        val element = list[i]
+    for (element in list) {
         str += if (element < 10) element
         else 'a' + element - 10
     }
@@ -272,8 +267,10 @@ fun convertToString(n: Int, base: Int): String {
 fun decimal(digits: List<Int>, base: Int): Int {
     var revDigits = digits.reversed().toMutableList()
     var result = 0
+    var basePower = 1
     for (i in 0 until revDigits.size) {
-        result += revDigits[i] * pow(base.toDouble(), i.toDouble()).toInt()
+        result += revDigits[i] * basePower
+        basePower *= base
     }
     return result
 }
