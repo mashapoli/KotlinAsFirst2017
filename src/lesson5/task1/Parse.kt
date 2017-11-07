@@ -137,10 +137,8 @@ fun bestLongJump(jumps: String): Int {
     if (jumps.contains(Regex("""[^\d \-%]"""))) {
         return -1
     }
-    val jump = Regex("""\d+""")
-    var x = jump.findAll(jumps)
     var max = -1
-    for (element in x) {
+    for (element in Regex("""\d+""").findAll(jumps)) {
         if (element.value.toInt() > max) {
             max = element.value.toInt()
         }
