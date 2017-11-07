@@ -117,10 +117,10 @@ fun dateDigitToStr(digital: String): String {
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String {
-    if (phone.contains(Regex("""[^\d+\(\) -]"""))){
+    if (phone.contains(Regex("""[^\d+() \-]"""))) {
         return ""
     }
-    return phone.replace(Regex("""[^\d+]""") , "")
+    return phone.replace(Regex("""[^\d+]"""), "")
 }
 
 /**
@@ -133,7 +133,20 @@ fun flattenPhoneNumber(phone: String): String {
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    if (jumps.contains(Regex("""[^\d \-%]"""))) {
+        return -1
+    }
+    val jump = Regex("""\d+""")
+    var x = jump.findAll(jumps)
+    var max = -1
+    for (element in x) {
+        if (element.value.toInt() > max) {
+            max = element.value.toInt()
+        }
+    }
+    return max
+}
 
 /**
  * Сложная
