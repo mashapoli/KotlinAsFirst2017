@@ -112,6 +112,7 @@ class Tests {
         assertEquals(0.0, Circle(Point(0.0, 0.0), 1.0).distance(Circle(Point(0.0, 2.0), 1.0)), 1e-5)
         assertEquals(1.0, Circle(Point(0.0, 0.0), 1.0).distance(Circle(Point(-4.0, 0.0), 2.0)), 1e-5)
         assertEquals(2.0 * Math.sqrt(2.0) - 2.0, Circle(Point(0.0, 0.0), 1.0).distance(Circle(Point(2.0, 2.0), 1.0)), 1e-5)
+        assertEquals(0.0, Circle(Point(-999.3222945665736, -999.9213294552618), 0.9599263577306159).distance(Circle(Point(-999.4405870225243, -1000.0), 661.6799043859469)), 1e-5)
     }
 
     @Test

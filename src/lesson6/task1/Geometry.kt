@@ -74,14 +74,12 @@ data class Circle(val center: Point, val radius: Double) {
      * Расстояние между пересекающимися окружностями считать равным 0.0.
      */
     fun distance(other: Circle): Double {
-        return if (radius == other.radius && (center.x == other.center.x || center.y == other.center.y)) {
-            0.0
-        } else {
-            sqrt(sqr(center.x - other.center.x) + sqr(center.y - other.center.y)) - (radius + other.radius)
+        var distan = sqrt(sqr(center.x - other.center.x) + sqr(center.y - other.center.y)) - (radius + other.radius)
+        return when {
+            distan <= 0.0 -> 0.0
+            else -> distan
         }
     }
-
-
     /**
      * Тривиальная
      *
