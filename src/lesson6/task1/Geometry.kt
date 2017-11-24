@@ -114,7 +114,16 @@ data class Circle(val center: Point, val radius: Double) {
      * Построить окружность по её диаметру, заданному двумя точками
      * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
      */
-    fun circleByDiameter(diameter: Segment): Circle = TODO()
+    fun circleByDiameter(diameter: Segment): Circle{
+        val x1 = diameter.begin.x
+        val x2 = diameter.end.x
+        val cenX = (x1 + x2)/2
+        val y1 = diameter.begin.y
+        val y2 = diameter.end.y
+        val cenY = (y1 + y2)/2
+        val radius = sqrt(sqr(x1 - x2) + sqr(y1 - y2))/2
+        return Circle(Point(cenX,cenY), radius)
+    }
 
     /**
      * Прямая, заданная точкой point и углом наклона angle (в радианах) по отношению к оси X.
