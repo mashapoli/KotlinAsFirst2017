@@ -106,10 +106,29 @@ data class Circle(val center: Point, val radius: Double) {
      * Дано множество точек. Вернуть отрезок, соединяющий две наиболее удалённые из них.
      * Если в множестве менее двух точек, бросить IllegalArgumentException
      */
-    fun diameter(vararg points: Point): Segment = TODO()
+    fun diameter(vararg points: Point): Segment {
+        if (points.size < 2) {
+            throw IllegalArgumentException()
+        }
+        var maxDist = 0.0
+        var begin: Point? = null
+        var end: Point? = null
+        for (i in 0 until points.size) {
+            for (j in i until points.size) {
+                var dist = sqrt(sqr(points[i].x - points[j].x) + sqr(points[i].y - points[j].y))
+                if (dist > maxDist) {
+                    maxDist = dist
+                    begin = points[i]
+                    end = points[j]
+                }
+            }
+        }
+        return Segment(begin!!, end!!)
+    }
 
     /**
      * Простая
+     *
      *
      * Построить окружность по её диаметру, заданному двумя точками
      * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
