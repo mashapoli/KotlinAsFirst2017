@@ -67,7 +67,7 @@ fun main(args: Array<String>) {
  */
 fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
-    if (!str.matches(Regex("""\d{1,2} [а-я]{3,8} \d{1,4}"""))) {
+    if (!str.matches(Regex("""\d{1,2} [а-я]{3,8} \d+"""))) {
         return ""
     }
     var monthNum = monthNames.indexOf(parts[1]) + 1
@@ -86,7 +86,7 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
-    if (!digital.matches(Regex("""\d{1,2}.\d{1,2}.\d{1,4}"""))) {
+    if (!digital.matches(Regex("""\d{1,2}.\d{1,2}.\d+"""))) {
         return ""
     }
     try {
@@ -131,7 +131,7 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    if (!jumps.matches(Regex("""(\d+|-|%)( \d+| -| %)*"""))) {
+    if (!jumps.matches(Regex("""(\d+|-|%)( +\d+| +-| +%)*"""))) {
         return -1
     }
     var max = -1
