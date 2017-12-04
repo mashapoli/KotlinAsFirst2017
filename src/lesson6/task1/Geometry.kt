@@ -80,15 +80,15 @@ data class Circle(val center: Point, val radius: Double) {
             else -> distan
         }
     }
+
     /**
      * Тривиальная
      *
      * Вернуть true, если и только если окружность содержит данную точку НА себе или ВНУТРИ себя
      */
-    fun contains(p: Point): Boolean {
-        return sqrt(sqr(center.x - p.x) + sqr(center.y - p.y)) <= radius
-    }
+    fun contains(p: Point): Boolean = sqrt(sqr(center.x - p.x) + sqr(center.y - p.y)) <= radius
 }
+
     /**
      * Отрезок между двумя точками
      */
@@ -115,7 +115,7 @@ data class Circle(val center: Point, val radius: Double) {
         var end: Point? = null
         for (i in 0 until points.size) {
             for (j in i until points.size) {
-                var dist = sqrt(sqr(points[i].x - points[j].x) + sqr(points[i].y - points[j].y))
+                var dist = points[i].distance(points[j])
                 if (dist > maxDist) {
                     maxDist = dist
                     begin = points[i]
@@ -133,15 +133,13 @@ data class Circle(val center: Point, val radius: Double) {
      * Построить окружность по её диаметру, заданному двумя точками
      * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
      */
-    fun circleByDiameter(diameter: Segment): Circle{
-        val x1 = diameter.begin.x
-        val x2 = diameter.end.x
-        val cenX = (x1 + x2)/2
-        val y1 = diameter.begin.y
-        val y2 = diameter.end.y
-        val cenY = (y1 + y2)/2
-        val radius = sqrt(sqr(x1 - x2) + sqr(y1 - y2))/2
-        return Circle(Point(cenX,cenY), radius)
+    fun circleByDiameter(diameter: Segment): Circle {
+        val point1 = Point(diameter.begin.x, diameter.begin.y)
+        val point2 = Point(diameter.end.x, diameter.end.y)
+        val cenX = (point1.x + point2.x) / 2
+        val cenY = (point1.y + point2.y) / 2
+        val radius = point1.distance(point2) / 2
+        return Circle(Point(cenX, cenY), radius)
     }
 
     /**

@@ -1,6 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson5.task1
-
+val monthNames = listOf("января", "февраля", "марта", "апреля", "мая", "июня", "июля",
+        "августа", "сентября", "октября", "ноября", "декабря")
 /**
  * Пример
  *
@@ -48,12 +49,10 @@ fun main(args: Array<String>) {
         val seconds = timeStrToSeconds(line)
         if (seconds == -1) {
             println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        }
-        else {
+        } else {
             println("Прошло секунд с начала суток: $seconds")
         }
-    }
-    else {
+    } else {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
@@ -68,11 +67,9 @@ fun main(args: Array<String>) {
  */
 fun dateStrToDigit(str: String): String {
     val parts = str.split(" ")
-    if (parts.size != 3) {
+    if (!str.matches(Regex("""\d{1,2} [а-я]{3,8} \d{1,4}"""))) {
         return ""
     }
-    val monthNames = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля",
-            "августа", "сентября", "октября", "ноября", "декабря")
     var monthNum = monthNames.indexOf(parts[1]) + 1
     if (monthNum == 0) {
         return ""
@@ -89,7 +86,7 @@ fun dateStrToDigit(str: String): String {
  */
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".")
-    if (parts.size != 3) {
+    if (!digital.matches(Regex("""\d{1,2}.\d{1,2}.\d{1,4}"""))) {
         return ""
     }
     try {
@@ -99,8 +96,6 @@ fun dateDigitToStr(digital: String): String {
     } catch (e: NumberFormatException) {
         return ""
     }
-    val monthNames = listOf<String>("января", "февраля", "марта", "апреля", "мая", "июня", "июля",
-            "августа", "сентября", "октября", "ноября", "декабря")
     var monthName = monthNames[parts[1].toInt() - 1]
     return String.format("%d %s %s", parts[0].toInt(), monthName, parts[2])
 }
@@ -136,7 +131,7 @@ fun flattenPhoneNumber(phone: String): String {
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    if (jumps.contains(Regex("""[^\d \-%]"""))) {
+    if (!jumps.matches(Regex("""(\d+|-|%)( \d+| -| %)*"""))) {
         return -1
     }
     var max = -1
@@ -159,7 +154,7 @@ fun bestLongJump(jumps: String): Int {
  * При нарушении формата входной строки вернуть -1.
  */
 fun bestHighJump(jumps: String): Int {
-    if (jumps.contains(Regex("""[^\d \-%+]"""))) {
+    if (!jumps.matches(Regex("""(\d+ ([-%+])+)( \d+ ([-%+])+)*"""))) {
         return -1
     }
     var max = -1
@@ -193,7 +188,7 @@ fun plusMinus(expression: String): Int {
             }
         }
         return result
-    } catch(e: RuntimeException) {
+    } catch(e: NumberFormatException) {
         throw IllegalArgumentException()
     }
 }

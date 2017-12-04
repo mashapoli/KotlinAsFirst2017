@@ -38,6 +38,7 @@ class Tests {
         assertEquals("", dateStrToDigit("3 мартобря 1918"))
         assertEquals("18.11.2018", dateStrToDigit("18 ноября 2018"))
         assertEquals("", dateStrToDigit("23"))
+        assertEquals("", dateStrToDigit("морозного января 1942"))
         assertEquals("03.04.2011", dateStrToDigit("3 апреля 2011"))
         assertEquals("03.04.1", dateStrToDigit("3 апреля 1"))
         assertEquals("23.09.1", dateStrToDigit("23 сентября 1"))
@@ -48,6 +49,7 @@ class Tests {
     fun dateDigitToStr() {
         assertEquals("15 июля 2016", dateDigitToStr("15.07.2016"))
         assertEquals("", dateDigitToStr("01.02.20.19"))
+        assertEquals("", dateDigitToStr("31.12.YYYY"))
         assertEquals("", dateDigitToStr("28.00.2000"))
         assertEquals("3 апреля 2011", dateDigitToStr("03.04.2011"))
         assertEquals("", dateDigitToStr("ab.cd.ef"))
@@ -70,6 +72,8 @@ class Tests {
         assertEquals(-1, bestLongJump("% - - % -"))
         assertEquals(754, bestLongJump("700 717 707 % 754"))
         assertEquals(-1, bestLongJump("700 + 700"))
+        assertEquals(700, bestLongJump("700"))
+        assertEquals(707, bestLongJump("707 - %"))
 
     }
 
