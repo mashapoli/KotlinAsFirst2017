@@ -161,7 +161,19 @@ data class Circle(val center: Point, val radius: Double) {
          * Найти точку пересечения с другой линией.
          * Для этого необходимо составить и решить систему из двух уравнений (каждое для своей прямой)
          */
-        fun crossPoint(other: Line): Point = TODO()
+        fun crossPoint(other: Line): Point {
+            var x : Double
+            var y : Double
+           if (angle == other.angle) return throw IllegalArgumentException()
+            if (Math.abs(Math.PI / 2 - angle) < 1e-5) {
+                x = - b
+                y = other.b
+            } else {
+                x = (other.b * Math.cos(angle) - b * Math.cos(other.angle)) / (Math.cos(angle) * Math.cos(other.angle) * (Math.tan(angle) - Math.tan(other.angle)))
+                y = x * Math.tan(angle) + b / Math.cos(angle)
+            }
+            return Point(x, y)
+        }
 
         override fun equals(other: Any?) = other is Line && angle == other.angle && b == other.b
 
