@@ -96,7 +96,7 @@ fun dateDigitToStr(digital: String): String {
     } catch (e: NumberFormatException) {
         return ""
     }
-    var monthName = monthNames[parts[1].toInt() - 1]
+    val monthName = monthNames[parts[1].toInt() - 1]
     return String.format("%d %s %s", parts[0].toInt(), monthName, parts[2])
 }
 
