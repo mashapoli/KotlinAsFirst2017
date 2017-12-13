@@ -217,7 +217,7 @@ data class Circle(val center: Point, val radius: Double) {
         } else if (b.x - a.x == 0.0) {
             k = 0.0
         } else {
-            k = (b.y - a.y) / (b.x - a.x)
+            k =-1/ (b.y - a.y) / (b.x - a.x)
         }
         return Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), k)
     }
