@@ -210,17 +210,9 @@ data class Circle(val center: Point, val radius: Double) {
      *
      * Построить серединный перпендикуляр по отрезку или по двум точкам
      */
-    fun bisectorByPoints(a: Point, b: Point): Line {
-        var k: Double
-        if (b.y - a.y == 0.0) {
-            k = Math.PI / 2
-        } else if (b.x - a.x == 0.0) {
-            k = 0.0
-        } else {
-            k =-1/ (b.y - a.y) / (b.x - a.x)
-        }
-        return Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), k)
-    }
+    fun bisectorByPoints(a: Point, b: Point): Line =
+            Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.PI / 2 + Math.atan2((b.y - a.y),(b.x - a.x)))
+
 
     /**
      * Средняя
