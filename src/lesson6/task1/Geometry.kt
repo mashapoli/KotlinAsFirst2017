@@ -165,7 +165,7 @@ data class Circle(val center: Point, val radius: Double) {
         fun crossPoint(other: Line): Point {
             var x: Double
             var y: Double
-            if (angle == other.angle) {
+            if ( Math.abs(angle - other.angle) < 1e-5) {
                 throw IllegalArgumentException()
             }
             if (Math.abs(Math.PI / 2 - angle) < 1e-5) {
@@ -173,7 +173,7 @@ data class Circle(val center: Point, val radius: Double) {
                 y = other.b
             } else if (Math.abs(Math.PI / 2 - other.angle) < 1e-5) {
                 x = -other.b
-                y = b
+                y = (-other.b * Math.sin(angle) + b) / Math.cos(angle)
             } else {
                 x = (other.b * Math.cos(angle) - b * Math.cos(other.angle)) / (Math.cos(angle) * Math.cos(other.angle) * (Math.tan(angle) - Math.tan(other.angle)))
                 y = x * Math.tan(angle) + b / Math.cos(angle)
@@ -237,8 +237,12 @@ data class Circle(val center: Point, val radius: Double) {
      * (построить окружность по трём точкам, или
      * построить окружность, описанную вокруг треугольника - эквивалентная задача).
      */
-    fun circleByThreePoints(a: Point, b: Point, c: Point): Circle =
-            Circle(bisectorByPoints(a, b).crossPoint(bisectorByPoints(b, c)), a.distance(bisectorByPoints(a, b).crossPoint(bisectorByPoints(b, c))))
+    fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
+        val bisectorByPointsAB = bisectorByPoints(a, b)
+        val bisectorByPointsBC = bisectorByPoints(b, c)
+        val center = bisectorByPointsAB.crossPoint(bisectorByPointsBC)
+        return Circle(center, a.distance(center))
+    }
 
 
     /**
