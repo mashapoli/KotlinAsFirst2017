@@ -86,7 +86,8 @@ data class Circle(val center: Point, val radius: Double) {
      *
      * Вернуть true, если и только если окружность содержит данную точку НА себе или ВНУТРИ себя
      */
-    fun contains(p: Point): Boolean = sqrt(sqr(center.x - p.x) + sqr(center.y - p.y)) <= radius
+    fun contains(p: Point): Boolean =
+            sqrt(sqr(center.x - p.x) + sqr(center.y - p.y)) <= radius
 }
 
     /**
@@ -210,10 +211,15 @@ data class Circle(val center: Point, val radius: Double) {
      *
      * Построить серединный перпендикуляр по отрезку или по двум точкам
      */
-    fun bisectorByPoints(a: Point, b: Point): Line =
-            Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), Math.PI / 2 + Math.atan2((b.y - a.y),(b.x - a.x)))
-
-
+    fun bisectorByPoints(a: Point, b: Point): Line {
+        var angle = Math.PI / 2 + Math.atan2((b.y - a.y), (b.x - a.x))
+        if (angle > Math.PI) {
+            angle -= Math.PI
+        } else if (angle < 0) {
+            angle += Math.PI
+        }
+        return Line(Point((a.x + b.x) / 2, (a.y + b.y) / 2), angle)
+    }
     /**
      * Средняя
      *
@@ -231,7 +237,9 @@ data class Circle(val center: Point, val radius: Double) {
      * (построить окружность по трём точкам, или
      * построить окружность, описанную вокруг треугольника - эквивалентная задача).
      */
-    fun circleByThreePoints(a: Point, b: Point, c: Point): Circle = TODO()
+    fun circleByThreePoints(a: Point, b: Point, c: Point): Circle =
+            Circle(bisectorByPoints(a, b).crossPoint(bisectorByPoints(b, c)), a.distance(bisectorByPoints(a, b).crossPoint(bisectorByPoints(b, c))))
+
 
     /**
      * Очень сложная
