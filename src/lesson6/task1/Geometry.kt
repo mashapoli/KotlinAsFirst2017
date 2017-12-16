@@ -170,7 +170,7 @@ data class Circle(val center: Point, val radius: Double) {
             }
             if (Math.abs(Math.PI / 2 - angle) < 1e-5) {
                 x = -b
-                y = other.b
+                y = (-b * Math.sin(other.angle) + other.b) / Math.cos(other.angle)
             } else if (Math.abs(Math.PI / 2 - other.angle) < 1e-5) {
                 x = -other.b
                 y = (-other.b * Math.sin(angle) + b) / Math.cos(angle)
