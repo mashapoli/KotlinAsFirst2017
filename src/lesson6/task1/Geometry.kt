@@ -2,8 +2,7 @@
 package lesson6.task1
 
 import lesson1.task1.sqr
-import java.lang.Math.max
-import java.lang.Math.sqrt
+import java.lang.Math.*
 
 /**
  * Точка на плоскости
@@ -267,25 +266,25 @@ data class Circle(val center: Point, val radius: Double) {
             return Circle(points[0], 0.0)
         }
         val lastIndex = points.size - 1
-        var twoPointsCircle = Circle(Point(0.0, 0.0), 0.0)
+        var minTwoPointsCircle = Circle(Point(0.0, 0.0), 0.0)
         for (i in 0..lastIndex) {
             for (j in i + 1..lastIndex) {
                 var c = circleByDiameter(Segment(points[i], points[j]))
-                if (points.all { c.contains(it) }) {
-                    twoPointsCircle = c
+                if (points.all { c.contains(it) } && c.radius < minTwoPointsCircle.radius) {
+                    minTwoPointsCircle = c
                 }
             }
         }
-        var threePointsCircle = Circle(Point(0.0, 0.0), 0.0)
+        var minThreePointsCircle = Circle(Point(0.0, 0.0), 0.0)
         for (i in 0..lastIndex) {
             for (j in i + 1..lastIndex) {
                 for (k in j + 1..lastIndex) {
                     var c = circleByThreePoints(points[i], points[j], points[k])
-                    if (points.all { c.contains(it) }) {
-                        threePointsCircle = c
+                    if (points.all { c.contains(it) } && c.radius < minThreePointsCircle.radius) {
+                        minThreePointsCircle = c
                     }
                 }
             }
         }
-        return if (twoPointsCircle.radius > threePointsCircle.radius) twoPointsCircle else threePointsCircle
+        return if (minTwoPointsCircle.radius > minThreePointsCircle.radius) minTwoPointsCircle else minThreePointsCircle
     }
