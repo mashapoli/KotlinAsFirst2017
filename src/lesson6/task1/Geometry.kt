@@ -2,6 +2,7 @@
 package lesson6.task1
 
 import lesson1.task1.sqr
+import java.lang.Math.max
 import java.lang.Math.sqrt
 
 /**
@@ -240,6 +241,9 @@ data class Circle(val center: Point, val radius: Double) {
     fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
         val bisectorByPointsAB = bisectorByPoints(a, b)
         val bisectorByPointsBC = bisectorByPoints(b, c)
+        if (Math.abs(bisectorByPointsAB.angle - bisectorByPointsBC.angle) < 1e-5) {
+            return circleByDiameter(diameter(a, b, c))
+        }
         val center = bisectorByPointsAB.crossPoint(bisectorByPointsBC)
         return Circle(center, a.distance(center))
     }
