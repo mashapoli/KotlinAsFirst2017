@@ -256,7 +256,25 @@ data class Circle(val center: Point, val radius: Double) {
      * три точки данного множества, либо иметь своим диаметром отрезок,
      * соединяющий две самые удалённые точки в данном множестве.
      */
-    fun minContainingCircle(vararg points: Point): Circle = TODO()
-
-
-
+    fun minContainingCircle(vararg points: Point): Circle {
+        val lastIndex = points.size - 1
+        for (i in 0..lastIndex) {
+            for (j in i + 1..lastIndex) {
+                var c = circleByDiameter(Segment(points[i], points[j]))
+                if (points.all { c.contains(it) }) {
+                    return c;
+                }
+            }
+        }
+        for (i in 0..lastIndex) {
+            for (j in i + 1..lastIndex) {
+                for (k in j + 1..lastIndex) {
+                    var c = circleByThreePoints(points[i], points[j], points[k])
+                    if (points.all { c.contains(it) }) {
+                        return c;
+                    }
+                }
+            }
+        }
+        throw IllegalArgumentException()
+    }
