@@ -111,7 +111,7 @@ data class Circle(val center: Point, val radius: Double) {
         if (points.size < 2) {
             throw IllegalArgumentException()
         }
-        var maxDist = 0.0
+        var maxDist = -1.0
         var begin: Point? = null
         var end: Point? = null
         for (i in 0 until points.size) {
@@ -213,7 +213,7 @@ data class Circle(val center: Point, val radius: Double) {
      */
     fun bisectorByPoints(a: Point, b: Point): Line {
         var angle = Math.PI / 2 + Math.atan2((b.y - a.y), (b.x - a.x))
-        if (angle > Math.PI) {
+        if (angle >= Math.PI) {
             angle -= Math.PI
         } else if (angle < 0) {
             angle += Math.PI
@@ -286,5 +286,5 @@ data class Circle(val center: Point, val radius: Double) {
                 }
             }
         }
-        return if (minTwoPointsCircle.radius > minThreePointsCircle.radius) minTwoPointsCircle else minThreePointsCircle
+        return if (minTwoPointsCircle.radius < minThreePointsCircle.radius) minTwoPointsCircle else minThreePointsCircle
     }
