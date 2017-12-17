@@ -257,24 +257,31 @@ data class Circle(val center: Point, val radius: Double) {
      * соединяющий две самые удалённые точки в данном множестве.
      */
     fun minContainingCircle(vararg points: Point): Circle {
+        if (points.isEmpty()) {
+            throw IllegalArgumentException()
+        } else if (points.size == 1) {
+            return Circle(points[0], 0.0)
+        }
         val lastIndex = points.size - 1
+        var twoPointsCircle = Circle(Point(0.0, 0.0), 0.0)
         for (i in 0..lastIndex) {
             for (j in i + 1..lastIndex) {
                 var c = circleByDiameter(Segment(points[i], points[j]))
                 if (points.all { c.contains(it) }) {
-                    return c;
+                    twoPointsCircle = c
                 }
             }
         }
+        var threePointsCircle = Circle(Point(0.0, 0.0), 0.0)
         for (i in 0..lastIndex) {
             for (j in i + 1..lastIndex) {
                 for (k in j + 1..lastIndex) {
                     var c = circleByThreePoints(points[i], points[j], points[k])
                     if (points.all { c.contains(it) }) {
-                        return c;
+                        threePointsCircle = c
                     }
                 }
             }
         }
-        throw IllegalArgumentException()
+        return if (twoPointsCircle.radius > threePointsCircle.radius) twoPointsCircle else threePointsCircle
     }
