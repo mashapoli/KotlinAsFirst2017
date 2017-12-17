@@ -266,7 +266,7 @@ data class Circle(val center: Point, val radius: Double) {
             return Circle(points[0], 0.0)
         }
         val lastIndex = points.size - 1
-        var minTwoPointsCircle = Circle(Point(0.0, 0.0), -1.0)
+        var minTwoPointsCircle = Circle(Point(0.0, 0.0), Double.MAX_VALUE)
         for (i in 0..lastIndex) {
             for (j in i + 1..lastIndex) {
                 var c = circleByDiameter(Segment(points[i], points[j]))
@@ -275,7 +275,7 @@ data class Circle(val center: Point, val radius: Double) {
                 }
             }
         }
-        var minThreePointsCircle = Circle(Point(0.0, 0.0), -1.0)
+        var minThreePointsCircle = Circle(Point(0.0, 0.0), Double.MAX_VALUE)
         for (i in 0..lastIndex) {
             for (j in i + 1..lastIndex) {
                 for (k in j + 1..lastIndex) {
