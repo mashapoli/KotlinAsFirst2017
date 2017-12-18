@@ -88,6 +88,9 @@ data class Circle(val center: Point, val radius: Double) {
      */
     fun contains(p: Point): Boolean =
             sqrt(sqr(center.x - p.x) + sqr(center.y - p.y)) <= radius
+
+    fun contains(p: Point, delta: Double): Boolean =
+            sqrt(sqr(center.x - p.x) + sqr(center.y - p.y)) <= radius + delta
 }
 
     /**
@@ -270,7 +273,7 @@ data class Circle(val center: Point, val radius: Double) {
         for (i in 0..lastIndex) {
             for (j in i + 1..lastIndex) {
                 var c = circleByDiameter(Segment(points[i], points[j]))
-                if (points.all { c.contains(it) } && c.radius < minTwoPointsCircle.radius) {
+                if (points.all { c.contains(it,1e-5) } && c.radius < minTwoPointsCircle.radius) {
                     minTwoPointsCircle = c
                 }
             }
@@ -280,7 +283,7 @@ data class Circle(val center: Point, val radius: Double) {
             for (j in i + 1..lastIndex) {
                 for (k in j + 1..lastIndex) {
                     var c = circleByThreePoints(points[i], points[j], points[k])
-                    if (points.all { c.contains(it) } && c.radius < minThreePointsCircle.radius) {
+                    if (points.all { c.contains(it, 1e-5) } && c.radius < minThreePointsCircle.radius) {
                         minThreePointsCircle = c
                     }
                 }
